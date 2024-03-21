@@ -17,4 +17,7 @@ renamed as (
 
 )
 
-select * from renamed
+select 
+    product_id,
+    quantity
+from renamed
