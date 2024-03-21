@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw_data_circle
+    description: data from Circle (French brand of eco-responsible and ethical sportswear)
+    tables:
+      - name: sales
+        identifier: raw_cc_sales
+        description: details about Circle stock
+      - name: stock
+        identifier: raw_cc_stock
+        description: details about Circle sales
+        tests:
+          - unique:
+              column_name: "(model || '_' || color || '_' || size)"
+
+models:
+  - name: stg_raw_sales
+    description: quantity sold and product_id
+    columns:
+      - name: product_id
+        description: primary key
+        tests:
+          - not_null
+          - unique
+      - name: quantity
+        description: amount of sold items
+  - name: stg_raw_stock
+    description: price and product_id per product
+    columns:
+      - name: product_id
+        description: primary key
+      - name: price
+        description: price per item
